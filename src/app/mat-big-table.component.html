@@ -1,0 +1,67 @@
+<div class="table-wrapper">
+  <div class="controls">
+    <div class="group-controls">
+      <button mat-stroked-button (click)="showAll()">Show All</button>
+      <button mat-stroked-button (click)="hideAll()">Hide All</button>
+    </div>
+
+    <div class="groups">
+      <ng-container *ngFor="let g of columnGroups; let i = index">
+        <button mat-flat-button color="primary" (click)="toggleGroup(i)">
+          {{ g.name }}
+        </button>
+      </ng-container>
+    </div>
+  </div>
+
+  <!-- top paginator removed; bottom paginator remains -->
+
+  <!-- Column toggles (kept commented for now) -->
+  <!-- <div class="column-toggles">
+    <ng-container *ngFor="let c of allColumns">
+      <mat-checkbox
+        class="col-checkbox"
+        [checked]="columnVisibility[c]"
+        (change)="toggleColumn(c)"
+        >{{ c }}</mat-checkbox
+      >
+    </ng-container>
+  </div> -->
+
+  <div class="mat-table-container">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!-- Group header columns (top header row) -->
+      <ng-container *ngFor="let g of columnGroups; let i = index" [matColumnDef]="'group' + i">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          [attr.colspan]="countVisibleInGroup(i)"
+          [class.hidden]="countVisibleInGroup(i) === 0"
+        >
+          <button mat-button (click)="toggleGroup(i)">{{ g.name }}</button>
+        </th>
+      </ng-container>
+
+      <!-- Dynamic columns (second header row + data cells) -->
+      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+        <th mat-header-cell *matHeaderCellDef> {{ column }} </th>
+        <td mat-cell *matCellDef="let element"> {{ element[column] }} </td>
+      </ng-container>
+
+      <!-- Render header rows: first group headers, then column headers -->
+      <tr mat-header-row class="group-header-row" *matHeaderRowDef="groupHeaderColumns"></tr>
+      <tr mat-header-row class="column-header-row" *matHeaderRowDef="displayedColumns"></tr>
+
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <div class="bottom-paginator">
+      <label class="page-size-label" for="pageSizeSelect">Items per page</label>
+      <select id="pageSizeSelect" class="page-size-select" (change)="onPageSizeChange($any($event.target).value)">
+        <option *ngFor="let opt of pageSizeOptions" [value]="opt">{{ opt }}</option>
+      </select>
+
+      <mat-paginator #paginator [pageSizeOptions]="[]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,156 @@
+.table-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.column-toggles {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  max-height: 120px;
+  overflow: auto;
+  padding: 4px;
+  border: 1px solid #e0e0e0;
+}
+
+.mat-table-container {
+  overflow: auto;
+  max-width: 100%;
+  position: relative;
+}
+
+table {
+  min-width: 1200px; /* cause horizontal scroll for many columns */
+}
+
+.col-checkbox {
+  height: 28px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Sticky header configuration */
+:root {
+  --group-header-height: 48px;
+  --column-header-height: 48px;
+}
+
+.group-header-row {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+}
+
+.column-header-row {
+  position: sticky;
+  top: var(--group-header-height);
+  z-index: 5;
+}
+
+/* Ensure header cells have a background so content scrolls under them cleanly */
+table th.mat-header-cell,
+table th.mat-header-cell,
+table th {
+  background: var(--citi-primary);
+  color: #fff;
+}
+
+/* Add a subtle shadow to separate headers from rows */
+.group-header-row th.mat-header-cell {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+}
+.column-header-row th.mat-header-cell {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+/* Paginator layout */
+.bottom-paginator {
+  display: flex;
+  justify-content: flex-start; /* align left */
+  align-items: center;
+  padding: 8px 12px;
+  margin-top: 8px;
+}
+
+/* Make the paginator compact on small screens */
+@media (max-width: 600px) {
+  .bottom-paginator {
+    padding: 4px 6px;
+  }
+}
+
+.pager-buttons {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.page-indicator {
+  margin: 0 8px;
+  font-size: 0.95rem;
+  color: var(--citi-foreground);
+}
+
+/* hide the built-in paginator page-size controls (we provide our own select) */
+.mat-paginator-page-size {
+  display: none !important;
+}
+
+.page-size-field {
+  width: 140px;
+  margin-right: 12px;
+}
+
+.page-size-label {
+  margin-right: 8px;
+  font-size: 0.9rem;
+  color: var(--citi-foreground);
+}
+
+.page-size-select {
+  padding: 6px 8px;
+  font-size: 0.95rem;
+  margin-right: 12px;
+}
+
+/* Zebra striping: apply to tbody rows so header rows are not counted */
+tbody tr.mat-row td.mat-cell {
+  background: #fff;
+  transition: background-color 150ms ease-in-out;
+}
+
+tbody tr.mat-row:nth-of-type(even) td.mat-cell {
+  background: rgba(0,88,163,0.04); /* light blue */
+}
+
+/* Hover state */
+tbody tr.mat-row:hover td.mat-cell {
+  background: rgba(0,88,163,0.08);
+}
+
+/* Selected/active row visual */
+tbody tr.mat-row.mat-selected td.mat-cell {
+  background: rgba(0,88,163,0.12);
+}
+
+/* Ensure sticky header cells keep their background and are above rows */
+.group-header-row th.mat-header-cell,
+.column-header-row th.mat-header-cell {
+  background: var(--citi-primary);
+  color: #fff;
+}
+
+/* Make header buttons use white text */
+.group-header-row button, .column-header-row button {
+  color: #fff;
+}

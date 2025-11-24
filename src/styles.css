@@ -1,1 +1,79 @@
-/* You can add global styles to this file, and also import other style files */
+/* Citi-inspired theme: font + color variables + Material CSS variable overrides */
+
+/* Font import (Google Fonts Roboto as a close match) */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+	/* Citi-like palette (approximations) */
+	--citi-primary: #0058A3; /* deep Citi blue */
+	--citi-accent: #E7002D; /* Citi red accent */
+	--citi-foreground: #0b2240; /* heading / primary text */
+	--citi-muted: #6b7a90; /* body-muted text */
+	--citi-surface: #ffffff; /* surface / card */
+	--citi-bg: #f4f7fb; /* page background */
+
+	/* Material (MDC) theme variables for Angular Material components */
+	--mdc-theme-primary: var(--citi-primary);
+	--mdc-theme-secondary: var(--citi-accent);
+	--mdc-theme-on-primary: #ffffff;
+	--mdc-theme-background: var(--citi-bg);
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: 'Roboto', Helvetica, Arial, sans-serif;
+	background: var(--citi-bg);
+	color: var(--citi-foreground);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Global typography */
+h1, h2, h3, h4, h5, h6 {
+	color: var(--citi-foreground);
+	margin: 0 0 0.5rem 0;
+}
+
+p {
+	color: var(--citi-muted);
+}
+
+/* Material button adjustments to use our variables */
+.mat-button, .mat-flat-button, .mat-stroked-button, .mat-raised-button {
+	font-family: inherit;
+}
+
+.mat-flat-button.mat-primary, .mat-raised-button.mat-primary {
+	background-color: var(--citi-primary);
+	color: var(--mdc-theme-on-primary);
+}
+
+.mat-stroked-button.mat-primary {
+	border-color: var(--citi-primary);
+	color: var(--citi-primary);
+}
+
+/* Table header surface styling to match theme */
+table th.mat-header-cell, table th {
+	background: var(--citi-surface);
+	color: var(--citi-foreground);
+}
+
+/* Controls area tweaks in the mat-big-table component */
+.table-wrapper .controls {
+	gap: 8px;
+}
+
+/* Make checkboxes and toggles more compact */
+.col-checkbox {
+	font-size: 0.8125rem;
+}
+
+/* Utility: small muted text */
+.muted { color: var(--citi-muted); }
+
+/* End of custom global styles */
